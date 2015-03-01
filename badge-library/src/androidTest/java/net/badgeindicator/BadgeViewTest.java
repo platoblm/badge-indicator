@@ -18,11 +18,9 @@ public class BadgeViewTest extends InstrumentationTestCase {
     BadgeView indicator;
     ViewGroup container;
     
-    Context context;
-    
     @Override
     public void setUp() {
-        context = getInstrumentation().getTargetContext();
+        Context context = getInstrumentation().getTargetContext();
         
         indicator = new BadgeView(context);
         
