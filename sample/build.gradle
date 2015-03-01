@@ -1,0 +1,19 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "net.badgeindicator.sample"
+        minSdkVersion 15
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+}
+
+dependencies {
+    compile project(':badge-library')
+    compile 'com.android.support:appcompat-v7:21.0.3'
+}

@@ -1,1 +1,1 @@
-include ':badge-library'
+include ':badge-library', ':sample'
