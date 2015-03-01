@@ -27,8 +27,8 @@ public class BadgeViewValidationTest extends InstrumentationTestCase {
     public void testShouldValidateWidth() {
         try {
             container.addView(indicator, 10, WRAP_CONTENT);
-            measureContainer();
-            fail("Should warn user when width not WRAP_CONTENT");
+            measure();
+            fail("Should warn user when width invalid");
         } catch (Exception exception) {
             assertThat(exception, CoreMatchers.instanceOf(RuntimeException.class));
             assertThat(exception.getMessage(), is("Width should be WRAP_CONTENT"));
@@ -38,15 +38,15 @@ public class BadgeViewValidationTest extends InstrumentationTestCase {
     public void testShouldValidateHeight() {
         try {
             container.addView(indicator, WRAP_CONTENT, 10);
-            measureContainer();
-            fail("Should warn user when height not WRAP_CONTENT");
+            measure();
+            fail("Should warn user when height invalid");
         } catch (Exception exception) {
             assertThat(exception, CoreMatchers.instanceOf(RuntimeException.class));
             assertThat(exception.getMessage(), is("Height should be WRAP_CONTENT"));
         }
     }
 
-    private void measureContainer() {
+    private void measure() {
         container.measure(makeMeasureSpec(1000, EXACTLY), makeMeasureSpec(300, EXACTLY));
     }
 }
