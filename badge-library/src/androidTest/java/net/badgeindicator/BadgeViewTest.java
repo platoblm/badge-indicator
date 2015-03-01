@@ -29,7 +29,7 @@ public class BadgeViewTest extends InstrumentationTestCase {
     }
 
     public void testShouldBeSquareWhenValueSingleDigit() {
-        indicator.setValue(9);
+        indicator.getConfiguration().setValue(9);
         measureContainer();
         assertThat(indicator.getMeasuredWidth(), is(not(0)));
         assertThat(indicator.getMeasuredWidth(), is(indicator.getMeasuredHeight()));
@@ -41,7 +41,7 @@ public class BadgeViewTest extends InstrumentationTestCase {
 
         int i = 0;
         while(i <= 9) {
-            indicator.setValue(i);
+            indicator.getConfiguration().setValue(i);
             measureContainer();
             assertThat(indicator.getMeasuredWidth(), is(singleDigitSide));
             assertThat(indicator.getMeasuredHeight(), is(singleDigitSide));
@@ -50,18 +50,40 @@ public class BadgeViewTest extends InstrumentationTestCase {
     }
 
     public void testShouldPreserveHeightWhenValueHasMoreDigits() {
-        indicator.setValue(122);
+        indicator.getConfiguration().setValue(122);
         measureContainer();
         assertThat(indicator.getMeasuredHeight(), is(singleDigitHeight()));
     }
+
+    public void testShouldRequestLayoutWhenValueChanges() {
+        layoutContainer();
+        assertThat(indicator.isLayoutRequested(), is(false));
+        
+        indicator.getConfiguration().setValue(10);
+        
+        assertThat(indicator.isLayoutRequested(), is(true));
+    }
+    
+    public void testShouldRequestLayoutWhenPaddingChanges() {
+        layoutContainer();
+        assertThat(indicator.isLayoutRequested(), is(false));
+        
+        indicator.getConfiguration().setPadding(10);
+        
+        assertThat(indicator.isLayoutRequested(), is(true));
+    }
     
     private int singleDigitHeight() {
-        indicator.setValue(0);
+        indicator.getConfiguration().setValue(0);
         measureContainer();
         return indicator.getMeasuredWidth();
     }
 
     private void measureContainer() {
         container.measure(makeMeasureSpec(1000, EXACTLY), makeMeasureSpec(300, EXACTLY));
+    }
+
+    private void layoutContainer() {
+        container.layout(0, 0, 1000, 300);
     }
 }
