@@ -6,12 +6,13 @@ import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class BadgeView extends View implements ConfigurationListener {
+public class BadgeView extends View {
 
     private final Validator validator = new Validator();
     private final Measurements measurements = new Measurements();
     private final Configuration configuration = new Configuration();
     
+
     public BadgeView(Context context) {
         super(context);
         init();
@@ -22,7 +23,19 @@ public class BadgeView extends View implements ConfigurationListener {
         init();
     }
 
-    public Configuration getConfiguration() {
+    /**
+     * @param value the value shown on the badge
+     */
+    public void setValue(int value) {
+        configuration.setValue(value);
+        requestLayout();
+    }
+    
+    public int getValue() {
+        return configuration.getValue();
+    }
+
+    Configuration getConfiguration() {
         return configuration;
     }
 
@@ -36,20 +49,13 @@ public class BadgeView extends View implements ConfigurationListener {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        // background
         canvas.drawPath(measurements.getBackgroundPath(), configuration.getBackgroundPaint());
 
-        // text
         PointF textOrigin = measurements.getTextOrigin();
         canvas.drawText(configuration.getTextToDraw(), textOrigin.x, textOrigin.y, configuration.getTextPaint());
     }
 
     private void init() {
-        configuration.setListener(this);
     }
 
-    @Override
-    public void measurementsNeedToBeUpdated() {
-        requestLayout();
-    }
 }

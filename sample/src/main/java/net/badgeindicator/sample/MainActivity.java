@@ -13,11 +13,9 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         ((BadgeView) findViewById(R.id.badge_single_digit))
-                .getConfiguration()
                 .setValue(9);
         
          ((BadgeView) findViewById(R.id.badge_more_digits))
-                .getConfiguration()
                 .setValue(138);
     }
 }

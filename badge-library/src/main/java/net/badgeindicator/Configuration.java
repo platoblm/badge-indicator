@@ -6,9 +6,8 @@ import android.graphics.Typeface;
 import static android.graphics.Paint.Align.CENTER;
 import static android.graphics.Paint.Style.FILL;
 
-public class Configuration {
+class Configuration {
 
-    private ConfigurationListener listener;
     private final Paint textPaint = new Paint();
     private final Paint backgroundPaint = new Paint();
 
@@ -37,13 +36,9 @@ public class Configuration {
         return value;
     }
 
-    /**
-     * @param value the value shown on the badge
-     */
     public void setValue(int value) {
         this.value = value;
         this.textToDraw = String.valueOf(value);
-        requestMeasurementsUpdate();
     }
 
     String getTextToDraw() {
@@ -53,22 +48,4 @@ public class Configuration {
     public int getPadding() {
         return padding;
     }
-
-    /**
-     * @param padding in pixels
-     */
-    public void setPadding(int padding) {
-        this.padding = padding;
-        requestMeasurementsUpdate();
-    }
-
-    private void requestMeasurementsUpdate() {
-        listener.measurementsNeedToBeUpdated();
-    }
-
-    void setListener(ConfigurationListener listener) {
-        this.listener = listener;
-    }
-    
-    
 }
