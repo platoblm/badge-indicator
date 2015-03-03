@@ -21,6 +21,7 @@ public class BadgeView extends View {
     public BadgeView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
+        configuration.loadAttributes(context, attrs);
     }
 
     /**
