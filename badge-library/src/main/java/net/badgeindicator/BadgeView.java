@@ -58,5 +58,4 @@ public class BadgeView extends View {
 
     private void init() {
     }
-
 }

@@ -17,8 +17,10 @@
             android:id="@+id/badge_single_digit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="1dp"
+            android:padding="10dp"
             android:textSize="20sp"
+            android:color="#00ff00"
+            android:textColor="#ff0000"
             />
 
         <net.badgeindicator.BadgeView
@@ -30,7 +32,7 @@
             android:textColor="#ffff00"
             android:textSize="100dp"
             />
-   
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

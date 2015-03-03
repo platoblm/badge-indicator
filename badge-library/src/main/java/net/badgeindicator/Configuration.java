@@ -7,6 +7,8 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 
+import java.util.Arrays;
+
 import static android.graphics.Paint.Align.CENTER;
 import static android.graphics.Paint.Style.FILL;
 
@@ -65,18 +67,20 @@ class Configuration {
         int[] set = {
                 ATTR_PADDING, ATTR_BADGE_COLOR, ATTR_TEXT_COLOR, ATTR_TEXT_SIZE, 
         };
+
+        Arrays.sort(set);
         
         TypedArray a = context.obtainStyledAttributes(attrs, set);
         try {
             padding = a.getDimensionPixelSize(indexOf(ATTR_PADDING, set), 0);
 
-            int badgeColor = a.getColor(indexOf(ATTR_BADGE_COLOR, set), backgroundPaint.getColor());
+            int badgeColor = a.getColor(indexOf(ATTR_BADGE_COLOR, set), 0);
             backgroundPaint.setColor(badgeColor);
 
-            int textColor = a.getColor(indexOf(ATTR_TEXT_COLOR, set), textPaint.getColor());
-            int textSize = a.getDimensionPixelSize(indexOf(ATTR_TEXT_SIZE, set), (int)textPaint.getTextSize());
-            textPaint.setColor(Color.YELLOW);
-            textPaint.setTextSize(200);
+            int textColor = a.getColor(indexOf(ATTR_TEXT_COLOR, set), 0);
+            int textSize = a.getDimensionPixelSize(indexOf(ATTR_TEXT_SIZE, set), 0);
+            textPaint.setColor(textColor);
+            textPaint.setTextSize(textSize);
         } finally {
             a.recycle();
         }
