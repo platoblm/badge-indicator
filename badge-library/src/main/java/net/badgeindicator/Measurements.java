@@ -56,8 +56,8 @@ class Measurements {
     
     private float calculateRadius(Size digitSize, float padding) {
         // hypotenuse assuming we had single digit with size of digitSize
-        float hypotenuse = (float) sqrt(pow(digitSize.width, 2) + pow(digitSize.height, 2));
-        return hypotenuse/2 + padding;
+        float hypotenuse = (float) sqrt(pow(digitSize.width, 2) + pow(digitSize.height + 2 * padding, 2));
+        return hypotenuse/2;
     }
 
     private void calculatePathForBackground(float radius) {

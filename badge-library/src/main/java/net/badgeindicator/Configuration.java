@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 
 import java.util.Arrays;
 
@@ -26,18 +28,23 @@ class Configuration {
     private int padding;
     private String textToDraw = "0";
 
-    Configuration() {
+    Configuration(Context context) {
         textPaint.setAntiAlias(true);
+        textPaint.setDither(true);
         textPaint.setTextAlign(CENTER);
         textPaint.setColor(Color.WHITE);
         textPaint.setTypeface(Typeface.DEFAULT);
-        textPaint.setTextSize(15);
+        textPaint.setTextSize(dpiToPixels(context, 20));
 
         backgroundPaint.setAntiAlias(true);
+        backgroundPaint.setDither(true);
         backgroundPaint.setStyle(FILL);
-        backgroundPaint.setColor(Color.GREEN);
+        backgroundPaint.setColor(Color.RED);
+
+        padding = (int)dpiToPixels(context, 3);
     }
-    
+
+
     Paint getTextPaint() {
         return textPaint;
     }
@@ -72,13 +79,13 @@ class Configuration {
         
         TypedArray a = context.obtainStyledAttributes(attrs, set);
         try {
-            padding = a.getDimensionPixelSize(indexOf(ATTR_PADDING, set), 0);
+            padding = a.getDimensionPixelSize(indexOf(ATTR_PADDING, set), padding);
 
-            int badgeColor = a.getColor(indexOf(ATTR_BADGE_COLOR, set), 0);
+            int badgeColor = a.getColor(indexOf(ATTR_BADGE_COLOR, set), backgroundPaint.getColor());
             backgroundPaint.setColor(badgeColor);
 
-            int textColor = a.getColor(indexOf(ATTR_TEXT_COLOR, set), 0);
-            int textSize = a.getDimensionPixelSize(indexOf(ATTR_TEXT_SIZE, set), 0);
+            int textColor = a.getColor(indexOf(ATTR_TEXT_COLOR, set), textPaint.getColor());
+            int textSize = a.getDimensionPixelSize(indexOf(ATTR_TEXT_SIZE, set), (int)textPaint.getTextSize());
             textPaint.setColor(textColor);
             textPaint.setTextSize(textSize);
         } finally {
@@ -94,5 +101,10 @@ class Configuration {
             }
         }
         throw new RuntimeException("id " + id +  " not in idSet");
+    }
+    
+    private float dpiToPixels(Context context, int dpi) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpi, displayMetrics);
     }
 }

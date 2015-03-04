@@ -17,10 +17,6 @@
             android:id="@+id/badge_single_digit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="20sp"
-            android:color="#00ff00"
-            android:textColor="#ff0000"
             />
 
         <net.badgeindicator.BadgeView
@@ -28,9 +24,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:value="111"
             android:color="#0000ff"
             android:textColor="#ffff00"
-            android:textSize="100dp"
+            android:textSize="190sp"
+            android:padding="0dp"
+            />
+        
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
             />
 
         <TextView

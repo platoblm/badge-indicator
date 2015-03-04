@@ -10,7 +10,7 @@ public class BadgeView extends View {
 
     private final Validator validator = new Validator();
     private final Measurements measurements = new Measurements();
-    private final Configuration configuration = new Configuration();
+    private Configuration configuration;
     
 
     public BadgeView(Context context) {
@@ -57,5 +57,6 @@ public class BadgeView extends View {
     }
 
     private void init() {
+        configuration = new Configuration(getContext());
     }
 }
