@@ -13,7 +13,7 @@ public class BadgeViewAttributesTest extends InstrumentationTestCase {
     public void testShouldUseDefaultValues() {
         Configuration configuration = new BadgeView(getContext()).getConfiguration();
 
-        assertThat(configuration.getValue(), is(0));
+        assertThat(configuration.getValueToDraw(), is("0"));
         assertThat(configuration.getTextPaint().getTextSize(), is(getDimen(R.dimen.badge_indicator_default_text_size)));
         assertThat(configuration.getPadding(), is((int)getDimen(R.dimen.badge_indicator_default_padding)));
     }
@@ -21,7 +21,7 @@ public class BadgeViewAttributesTest extends InstrumentationTestCase {
     public void testShouldLoadAttributesFromLayoutFile() {
         Configuration configuration = inflateSampleView().getConfiguration();
 
-        assertThat(configuration.getValue(), is(5));
+        assertThat(configuration.getValueToDraw(), is("5"));
         assertThat(configuration.getPadding(), is((int)getDimen(R.dimen.badge_indicator_sample_padding)));
         assertThat(configuration.getTextPaint().getTextSize(), is(getDimen(R.dimen.badge_indicator_sample_text_size)));
         assertThat(configuration.getBackgroundPaint().getColor(), is(Color.RED));

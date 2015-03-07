@@ -52,7 +52,7 @@ public class BadgeView extends View {
         canvas.drawPath(measurements.getBackgroundPath(), configuration.getBackgroundPaint());
 
         PointF textOrigin = measurements.getTextOrigin();
-        canvas.drawText(configuration.getTextToDraw(), textOrigin.x, textOrigin.y, configuration.getTextPaint());
+        canvas.drawText(configuration.getValueToDraw(), textOrigin.x, textOrigin.y, configuration.getTextPaint());
     }
 
     private void init() {

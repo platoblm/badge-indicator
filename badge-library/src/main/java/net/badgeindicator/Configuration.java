@@ -43,7 +43,6 @@ class Configuration {
 
     private int value;
     private int padding;
-    private String textToDraw = "0";
 
     Configuration() {
         textPaint.setAntiAlias(true);
@@ -73,11 +72,10 @@ class Configuration {
 
     void setValue(int value) {
         this.value = value;
-        this.textToDraw = String.valueOf(value);
     }
 
-    String getTextToDraw() {
-        return textToDraw;
+    String getValueToDraw() {
+        return String.valueOf(value);
     }
 
     int getPadding() {

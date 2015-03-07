@@ -38,7 +38,7 @@ class Measurements {
         Paint textPaint = configuration.getTextPaint();
         Size digitSize = findDigitSize(textPaint);
         
-        float measuredWidth = textPaint.measureText(configuration.getTextToDraw());
+        float measuredWidth = textPaint.measureText(configuration.getValueToDraw());
         float textWidth = Math.max(digitSize.width, measuredWidth); // minimum width = max single digit width
         float textHeight = digitSize.height;
 

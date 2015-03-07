@@ -4,43 +4,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
     tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp"
+    >
+
+    <net.badgeindicator.BadgeView
+        android:id="@+id/badge_default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:value="9"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dp"
+        android:layout_marginTop="30dp"
         >
 
         <net.badgeindicator.BadgeView
-            android:id="@+id/badge_single_digit"
+            android:id="@+id/badge_bigger_single_digit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="70dp"
+            android:value="9"
             />
 
         <net.badgeindicator.BadgeView
-            android:id="@+id/badge_more_digits"
+            android:id="@+id/badge_bigger_more_digits"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:value="111"
+            android:layout_marginLeft="20dp"
             android:color="#0000ff"
-            android:textColor="#ffff00"
-            android:textSize="190sp"
-            android:padding="0dp"
-            />
-        
-        <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
+            android:textColor="#ffffff"
+            android:textSize="70dp"
+            android:value="135"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            />
     </LinearLayout>
 </LinearLayout>
