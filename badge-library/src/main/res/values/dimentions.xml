@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="badge_indicator_default_text_size">15sp</dimen>
+    <dimen name="badge_indicator_default_padding">2dp</dimen>
+
+    <dimen name="badge_indicator_sample_text_size">12sp</dimen>
+    <dimen name="badge_indicator_sample_padding">3dp</dimen>
+</resources>

@@ -1,6 +1,7 @@
 package net.badgeindicator;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,6 +9,8 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+
+import java.util.Arrays;
 
 import java.util.Arrays;
 
@@ -20,6 +23,20 @@ class Configuration {
     private static final int ATTR_BADGE_COLOR = android.R.attr.color;
     private static final int ATTR_TEXT_COLOR = android.R.attr.textColor;
     private static final int ATTR_TEXT_SIZE = android.R.attr.textSize;
+    private static final int ATTR_VALUE = android.R.attr.value;
+    private static final int[] ATTR_SET = createAttrSet();
+
+    private static int[] createAttrSet() {
+        int[] attrs = {
+                ATTR_PADDING,
+                ATTR_BADGE_COLOR,
+                ATTR_TEXT_COLOR,
+                ATTR_TEXT_SIZE,
+                ATTR_VALUE
+        };
+        Arrays.sort(attrs);
+        return attrs;
+    }
 
     private final Paint textPaint = new Paint();
     private final Paint backgroundPaint = new Paint();
@@ -28,20 +45,17 @@ class Configuration {
     private int padding;
     private String textToDraw = "0";
 
-    Configuration(Context context) {
+    Configuration() {
         textPaint.setAntiAlias(true);
         textPaint.setDither(true);
         textPaint.setTextAlign(CENTER);
         textPaint.setColor(Color.WHITE);
         textPaint.setTypeface(Typeface.DEFAULT);
-        textPaint.setTextSize(dpiToPixels(context, 20));
 
         backgroundPaint.setAntiAlias(true);
         backgroundPaint.setDither(true);
         backgroundPaint.setStyle(FILL);
         backgroundPaint.setColor(Color.RED);
-
-        padding = (int)dpiToPixels(context, 3);
     }
 
 
@@ -69,42 +83,39 @@ class Configuration {
     int getPadding() {
         return padding;
     }
-    
+
+    void loadDefaults(Context context) {
+        Resources resources = context.getResources();
+        textPaint.setTextSize(resources.getDimensionPixelSize(R.dimen.badge_indicator_default_text_size));
+        padding = resources.getDimensionPixelSize(R.dimen.badge_indicator_default_padding);
+    }
+
     void loadAttributes(Context context, AttributeSet attrs) {
-        int[] set = {
-                ATTR_PADDING, ATTR_BADGE_COLOR, ATTR_TEXT_COLOR, ATTR_TEXT_SIZE, 
-        };
-
-        Arrays.sort(set);
-        
-        TypedArray a = context.obtainStyledAttributes(attrs, set);
-        try {
-            padding = a.getDimensionPixelSize(indexOf(ATTR_PADDING, set), padding);
-
-            int badgeColor = a.getColor(indexOf(ATTR_BADGE_COLOR, set), backgroundPaint.getColor());
-            backgroundPaint.setColor(badgeColor);
-
-            int textColor = a.getColor(indexOf(ATTR_TEXT_COLOR, set), textPaint.getColor());
-            int textSize = a.getDimensionPixelSize(indexOf(ATTR_TEXT_SIZE, set), (int)textPaint.getTextSize());
-            textPaint.setColor(textColor);
-            textPaint.setTextSize(textSize);
-        } finally {
-            a.recycle();
-        }
-        
+        TypedArray a = context.obtainStyledAttributes(attrs, ATTR_SET);
+        loadFromAttrArray(a);
+        a.recycle();
     }
-    
-    private int indexOf(int id, int[] idSet) {
-        for (int i = 0; i < idSet.length; i++) {
-            if (idSet[i] == id) {
-                return i;
-            }
-        }
-        throw new RuntimeException("id " + id +  " not in idSet");
+
+    private void loadFromAttrArray(TypedArray a) {
+        value = a.getInt(indexOfAttr(ATTR_VALUE), value);
+        padding = a.getDimensionPixelSize(indexOfAttr(ATTR_PADDING), padding);
+
+        int badgeColor = a.getColor(indexOfAttr(ATTR_BADGE_COLOR), backgroundPaint.getColor());
+        backgroundPaint.setColor(badgeColor);
+
+        int textColor = a.getColor(indexOfAttr(ATTR_TEXT_COLOR), textPaint.getColor());
+        textPaint.setColor(textColor);
+
+        int textSize = a.getDimensionPixelSize(indexOfAttr(ATTR_TEXT_SIZE), (int)textPaint.getTextSize());
+        textPaint.setTextSize(textSize);
     }
-    
-    private float dpiToPixels(Context context, int dpi) {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpi, displayMetrics);
+
+
+    private int indexOfAttr(int id) {
+        for (int i = 0; i < ATTR_SET.length; i++) {
+            if (ATTR_SET[i] == id) return i;
+        }
+
+        throw new RuntimeException("id " + id +  " not in ATTR_SET");
     }
 }

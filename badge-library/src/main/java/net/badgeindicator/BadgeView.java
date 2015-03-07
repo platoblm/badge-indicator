@@ -10,8 +10,7 @@ public class BadgeView extends View {
 
     private final Validator validator = new Validator();
     private final Measurements measurements = new Measurements();
-    private Configuration configuration;
-    
+    private final Configuration configuration = new Configuration();
 
     public BadgeView(Context context) {
         super(context);
@@ -43,7 +42,7 @@ public class BadgeView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         validator.validateLayoutParameters(this);
-        
+
         measurements.update(configuration);
         setMeasuredDimension(measurements.getWidth(), measurements.getHeight());
     }
@@ -57,6 +56,6 @@ public class BadgeView extends View {
     }
 
     private void init() {
-        configuration = new Configuration(getContext());
+        configuration.loadDefaults(getContext());
     }
 }
