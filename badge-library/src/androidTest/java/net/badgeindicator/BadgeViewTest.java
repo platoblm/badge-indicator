@@ -14,24 +14,24 @@ import static org.hamcrest.core.IsNot.not;
 
 public class BadgeViewTest extends InstrumentationTestCase {
     
-    BadgeView indicator;
+    BadgeView badge;
     ViewGroup container;
     
     @Override
     public void setUp() {
         Context context = getInstrumentation().getTargetContext();
         
-        indicator = new BadgeView(context);
+        badge = new BadgeView(context);
         
         container = new FrameLayout(context);
-        container.addView(indicator, WRAP_CONTENT, WRAP_CONTENT);
+        container.addView(badge, WRAP_CONTENT, WRAP_CONTENT);
     }
 
     public void testShouldBeSquareWhenValueSingleDigit() {
-        indicator.setValue(9);
+        badge.setValue(9);
         measureContainer();
-        assertThat(indicator.getMeasuredWidth(), is(not(0)));
-        assertThat(indicator.getMeasuredWidth(), is(indicator.getMeasuredHeight()));
+        assertThat(badge.getMeasuredWidth(), is(not(0)));
+        assertThat(badge.getMeasuredWidth(), is(badge.getMeasuredHeight()));
     }
 
     public void testShouldHaveSameSizeForAllSingleDigits() {
@@ -40,33 +40,33 @@ public class BadgeViewTest extends InstrumentationTestCase {
 
         int i = 0;
         while(i <= 9) {
-            indicator.setValue(i);
+            badge.setValue(i);
             measureContainer();
-            assertThat(indicator.getMeasuredWidth(), is(singleDigitSide));
-            assertThat(indicator.getMeasuredHeight(), is(singleDigitSide));
+            assertThat(badge.getMeasuredWidth(), is(singleDigitSide));
+            assertThat(badge.getMeasuredHeight(), is(singleDigitSide));
             i++;
         }
     }
 
     public void testShouldPreserveHeightWhenValueHasMoreDigits() {
-        indicator.setValue(122);
+        badge.setValue(122);
         measureContainer();
-        assertThat(indicator.getMeasuredHeight(), is(singleDigitHeight()));
+        assertThat(badge.getMeasuredHeight(), is(singleDigitHeight()));
     }
 
     public void testShouldRequestLayoutWhenValueChanges() {
         layoutContainer();
-        assertThat(indicator.isLayoutRequested(), is(false));
+        assertThat(badge.isLayoutRequested(), is(false));
         
-        indicator.setValue(10);
+        badge.setValue(10);
         
-        assertThat(indicator.isLayoutRequested(), is(true));
+        assertThat(badge.isLayoutRequested(), is(true));
     }
     
     private int singleDigitHeight() {
-        indicator.setValue(0);
+        badge.setValue(0);
         measureContainer();
-        return indicator.getMeasuredWidth();
+        return badge.getMeasuredWidth();
     }
 
     private void measureContainer() {

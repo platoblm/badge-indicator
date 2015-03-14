@@ -11,27 +11,25 @@ import static org.hamcrest.Matchers.is;
 public class BadgeViewAttributesTest extends InstrumentationTestCase {
 
     public void testShouldUseDefaultValues() {
-        Configuration configuration = new BadgeView(getContext()).getConfiguration();
+        Configuration config = new BadgeView(getContext()).getConfiguration();
 
-        assertThat(configuration.getValueToDraw(), is("0"));
-        assertThat(configuration.getTextPaint().getTextSize(), is(getDimen(R.dimen.badge_indicator_default_text_size)));
-        assertThat(configuration.getPadding(), is((int)getDimen(R.dimen.badge_indicator_default_padding)));
+        assertThat(config.getValueToDraw(), is("0"));
+        assertThat(config.getTextPaint().getTextSize(), is(dimension(R.dimen.badge_indicator_default_text_size)));
+        assertThat(config.getPadding(), is((int) dimension(R.dimen.badge_indicator_default_padding)));
     }
 
     public void testShouldLoadAttributesFromLayoutFile() {
-        Configuration configuration = inflateSampleView().getConfiguration();
+        Configuration config = inflateSampleView().getConfiguration();
 
-        assertThat(configuration.getValueToDraw(), is("5"));
-        assertThat(configuration.getPadding(), is((int)getDimen(R.dimen.badge_indicator_sample_padding)));
-        assertThat(configuration.getTextPaint().getTextSize(), is(getDimen(R.dimen.badge_indicator_sample_text_size)));
-        assertThat(configuration.getBackgroundPaint().getColor(), is(Color.RED));
-        assertThat(configuration.getTextPaint().getColor(), is(Color.WHITE));
+        assertThat(config.getValueToDraw(), is("5"));
+        assertThat(config.getPadding(), is((int) dimension(R.dimen.badge_indicator_sample_padding)));
+        assertThat(config.getTextPaint().getTextSize(), is(dimension(R.dimen.badge_indicator_sample_text_size)));
+        assertThat(config.getBackgroundPaint().getColor(), is(Color.RED));
+        assertThat(config.getTextPaint().getColor(), is(Color.WHITE));
     }
 
     private BadgeView inflateSampleView() {
-        Context context = getContext();
-
-        return (BadgeView) LayoutInflater.from(context)
+        return (BadgeView) LayoutInflater.from(getContext())
                 .inflate(R.layout.sample_badge_view_configuration, null);
     }
 
@@ -39,7 +37,7 @@ public class BadgeViewAttributesTest extends InstrumentationTestCase {
         return getInstrumentation().getTargetContext();
     }
 
-    private float getDimen(int resourceId) {
+    private float dimension(int resourceId) {
         return getContext().getResources().getDimensionPixelOffset(resourceId);
     }
 }

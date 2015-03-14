@@ -15,35 +15,38 @@ import static org.hamcrest.core.Is.is;
 
 public class BadgeViewValidationTest extends InstrumentationTestCase {
 
-    BadgeView indicator;
+    BadgeView badge;
     ViewGroup container;
 
     public void setUp() {
         Context context = getInstrumentation().getTargetContext();
-        indicator = new BadgeView(context);
+        badge = new BadgeView(context);
         container = new FrameLayout(context);
     }
     
     public void testShouldValidateWidth() {
         try {
-            container.addView(indicator, 10, WRAP_CONTENT);
+            container.addView(badge, 10, WRAP_CONTENT);
             measure();
             fail("Should warn user when width invalid");
-        } catch (Exception exception) {
-            assertThat(exception, CoreMatchers.instanceOf(RuntimeException.class));
-            assertThat(exception.getMessage(), is("Width should be WRAP_CONTENT"));
+        } catch (Exception e) {
+            assertException(e, "Width should be WRAP_CONTENT");
         }
     }
 
     public void testShouldValidateHeight() {
         try {
-            container.addView(indicator, WRAP_CONTENT, 10);
+            container.addView(badge, WRAP_CONTENT, 10);
             measure();
             fail("Should warn user when height invalid");
-        } catch (Exception exception) {
-            assertThat(exception, CoreMatchers.instanceOf(RuntimeException.class));
-            assertThat(exception.getMessage(), is("Height should be WRAP_CONTENT"));
+        } catch (Exception e) {
+            assertException(e, "Height should be WRAP_CONTENT");
         }
+    }
+
+    private void assertException(Exception e, String message) {
+        assertThat(e, CoreMatchers.instanceOf(RuntimeException.class));
+        assertThat(e.getMessage(), is(message));
     }
 
     private void measure() {
