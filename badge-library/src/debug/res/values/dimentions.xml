@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="badge_indicator_sample_text_size">12sp</dimen>
+    <dimen name="badge_indicator_sample_padding">3dp</dimen>
+</resources>
