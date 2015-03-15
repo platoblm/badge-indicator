@@ -34,8 +34,8 @@ class Measurements {
         return path;
     }
 
-    void update(Configuration configuration) {
-        Paint textPaint = configuration.getTextPaint();
+    void update(Configuration configuration, Paints paints) {
+        Paint textPaint = paints.getTextPaint();
         Size digitSize = findDigitSize(textPaint);
         
         float measuredWidth = textPaint.measureText(configuration.getValueToDraw());

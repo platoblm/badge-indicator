@@ -9,8 +9,9 @@ import android.view.View;
 public class BadgeView extends View {
 
     private final Validator validator = new Validator();
-    private final Measurements measurements = new Measurements();
     private final Configuration configuration = new Configuration();
+    private final Measurements measurements = new Measurements();
+    private final Paints paints = new Paints();
 
     public BadgeView(Context context) {
         super(context);
@@ -43,16 +44,20 @@ public class BadgeView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         validator.validateLayoutParameters(this);
 
-        measurements.update(configuration);
+        paints.configure(configuration);
+        measurements.update(configuration, paints);
+
         setMeasuredDimension(measurements.getWidth(), measurements.getHeight());
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawPath(measurements.getBackgroundPath(), configuration.getBackgroundPaint());
+        // background
+        canvas.drawPath(measurements.getBackgroundPath(), paints.getBackgroundPaint());
 
+        // text
         PointF textOrigin = measurements.getTextOrigin();
-        canvas.drawText(configuration.getValueToDraw(), textOrigin.x, textOrigin.y, configuration.getTextPaint());
+        canvas.drawText(configuration.getValueToDraw(), textOrigin.x, textOrigin.y, paints.getTextPaint());
     }
 
     private void init() {
