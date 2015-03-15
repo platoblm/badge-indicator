@@ -31,9 +31,9 @@ class Paints {
     }
 
     public void configure(Configuration config) {
-        textPaint.setColor(config.getTextColor());
+        textPaint.setColor(config.getCurrentTextColor());
         textPaint.setTextSize(config.getTextSize());
 
-        backgroundPaint.setColor(config.getBackgroundColor());
+        backgroundPaint.setColor(config.getCurrentBackgroundColor());
     }
 }

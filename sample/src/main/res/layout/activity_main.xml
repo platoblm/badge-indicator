@@ -9,38 +9,33 @@
     android:padding="10dp"
     >
 
-    <net.badgeindicator.BadgeView
-        android:id="@+id/badge_default"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        badge:badge_value="9"
-        />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="30dp"
         >
 
         <net.badgeindicator.BadgeView
-            android:id="@+id/badge_bigger_single_digit"
+            android:id="@+id/badge_single_digit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             badge:badge_value="9"
             badge:badge_textSize="70dp"
+            badge:badge_color="@color/badge_first_background"
+            badge:badge_textColor="@color/badge_text"
             />
 
         <net.badgeindicator.BadgeView
-            android:id="@+id/badge_bigger_more_digits"
+            android:id="@+id/badge_more_digits"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             badge:badge_value="135"
-            badge:badge_color="#0000ff"
-            badge:badge_textColor="#ffffff"
+            badge:badge_color="@color/badge_second_background"
+            badge:badge_textColor="@color/badge_text"
             badge:badge_textSize="70dp"
             />
 
     </LinearLayout>
+
 </LinearLayout>

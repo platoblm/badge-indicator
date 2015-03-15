@@ -1,18 +1,24 @@
 package net.badgeindicator;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.util.AttributeSet;
+
+import static android.graphics.Color.RED;
+import static android.graphics.Color.WHITE;
 
 class Configuration {
 
     private int value;
-    private int backgroundColor;
-    private int textColor;
+    private ColorStateList backgroundColors;
+    private ColorStateList textColors;
     private int textSize;
     private int padding;
+
+    private int currentBackgroundColor;
+    private int currentTextColor;
 
     public int getValue() {
         return value;
@@ -26,12 +32,12 @@ class Configuration {
         return String.valueOf(value);
     }
 
-    public int getBackgroundColor() {
-        return backgroundColor;
+    public int getCurrentBackgroundColor() {
+        return currentBackgroundColor;
     }
 
-    public int getTextColor() {
-        return textColor;
+    public int getCurrentTextColor() {
+        return currentTextColor;
     }
 
     public int getTextSize() {
@@ -44,23 +50,50 @@ class Configuration {
 
     void loadDefaults(Context context) {
         Resources resources = context.getResources();
-        backgroundColor = Color.RED;
-        textColor = Color.WHITE;
+        backgroundColors = ColorStateList.valueOf(RED);
+        textColors = ColorStateList.valueOf(WHITE);
         textSize= resources.getDimensionPixelSize(R.dimen.badge_indicator_default_text_size);
         padding = resources.getDimensionPixelSize(R.dimen.badge_indicator_default_padding);
     }
 
     void loadAttributes(Context context, AttributeSet attrs) {
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.BadgeIndicator);
-        loadFromAttributeArray(array);
-        array.recycle();
+        TypedArray appearance = context.obtainStyledAttributes(attrs, R.styleable.BadgeIndicator);
+        loadFromAttributeArray(appearance);
+        appearance.recycle();
     }
 
-    private void loadFromAttributeArray(TypedArray array) {
-        value = array.getInt(R.styleable.BadgeIndicator_badge_value, value);
-        backgroundColor = array.getColor(R.styleable.BadgeIndicator_badge_color, backgroundColor);
-        textColor = array.getColor(R.styleable.BadgeIndicator_badge_textColor, textColor);
-        textSize = array.getDimensionPixelSize(R.styleable.BadgeIndicator_badge_textSize, textSize);
-        padding = array.getDimensionPixelSize(R.styleable.BadgeIndicator_badge_padding, padding);
+    /**
+     * @param stateSet the current drawable state
+     * @return true if colors have changed, false if not
+     */
+    boolean updateCurrentColors(int[] stateSet) {
+        boolean changed = false;
+
+        int color = backgroundColors.getColorForState(stateSet, 0);
+        if (currentBackgroundColor != color) {
+            currentBackgroundColor = color;
+            changed = true;
+        }
+
+        color = textColors.getColorForState(stateSet, 0);
+        if (currentTextColor != color) {
+            currentTextColor = color;
+            changed = true;
+        }
+
+        return changed;
+    }
+
+    private void loadFromAttributeArray(TypedArray appearance) {
+        value = appearance.getInt(R.styleable.BadgeIndicator_badge_value, value);
+        backgroundColors = getColorStateList(appearance,R.styleable.BadgeIndicator_badge_color, backgroundColors);
+        textColors = getColorStateList(appearance, R.styleable.BadgeIndicator_badge_textColor, textColors);
+        textSize = appearance.getDimensionPixelSize(R.styleable.BadgeIndicator_badge_textSize, textSize);
+        padding = appearance.getDimensionPixelSize(R.styleable.BadgeIndicator_badge_padding, padding);
+    }
+
+    private ColorStateList getColorStateList(TypedArray appearance, int resourceIndex, ColorStateList defaultColors) {
+        ColorStateList colors = appearance.getColorStateList(resourceIndex);
+        return colors != null ? colors : defaultColors;
     }
 }

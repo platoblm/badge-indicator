@@ -14,23 +14,35 @@ import static org.hamcrest.Matchers.is;
 public class BadgeViewAttributesTest extends InstrumentationTestCase {
 
     public void testShouldUseDefaultValues() {
-        Configuration config = new BadgeView(getContext()).getConfiguration();
+        Configuration config = getDefaultConfiguration();
 
         assertThat(config.getValueToDraw(), is("0"));
-        assertThat(config.getBackgroundColor(), is(RED));
-        assertThat(config.getTextColor(), is(WHITE));
+        assertThat(config.getCurrentBackgroundColor(), is(RED));
+        assertThat(config.getCurrentTextColor(), is(WHITE));
         assertThat(config.getTextSize(), is(dimension(R.dimen.badge_indicator_default_text_size)));
         assertThat(config.getPadding(), is(dimension(R.dimen.badge_indicator_default_padding)));
     }
 
     public void testShouldLoadAttributesFromLayoutFile() {
-        Configuration config = inflateSampleView().getConfiguration();
+        Configuration config = getSampleConfiguration();
 
         assertThat(config.getValueToDraw(), is("5"));
-        assertThat(config.getBackgroundColor(), is(GREEN));
-        assertThat(config.getTextColor(), is(BLACK));
+        assertThat(config.getCurrentBackgroundColor(), is(GREEN));
+        assertThat(config.getCurrentTextColor(), is(BLACK));
         assertThat(config.getTextSize(), is(dimension(R.dimen.badge_indicator_sample_text_size)));
         assertThat(config.getPadding(), is(dimension(R.dimen.badge_indicator_sample_padding)));
+    }
+
+    private Configuration getDefaultConfiguration() {
+        BadgeView view = new BadgeView(getContext());
+        view.drawableStateChanged();
+        return view.getConfiguration();
+    }
+
+    private Configuration getSampleConfiguration() {
+        BadgeView view = inflateSampleView();
+        view.drawableStateChanged();
+        return view.getConfiguration();
     }
 
     private BadgeView inflateSampleView() {

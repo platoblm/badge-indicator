@@ -50,6 +50,18 @@ public class BadgeView extends View {
         setMeasuredDimension(measurements.getWidth(), measurements.getHeight());
     }
 
+
+    @Override
+    protected void drawableStateChanged() {
+        super.drawableStateChanged();
+
+        boolean colorsChanged = configuration.updateCurrentColors(getDrawableState());
+        if (colorsChanged) {
+            paints.configure(configuration);
+            invalidate();
+        }
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         // background
