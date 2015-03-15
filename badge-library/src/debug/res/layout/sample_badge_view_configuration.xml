@@ -1,10 +1,11 @@
 <net.badgeindicator.BadgeView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:badge="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="@dimen/badge_indicator_sample_padding"
-    android:color="#ff0000"
-    android:textColor="#ffffff"
-    android:textSize="@dimen/badge_indicator_sample_text_size"
-    android:value="5"
+    badge:badge_value="5"
+    badge:badge_padding="@dimen/badge_indicator_sample_padding"
+    badge:badge_color="#ff0000"
+    badge:badge_textColor="#ffffff"
+    badge:badge_textSize="@dimen/badge_indicator_sample_text_size"
     />

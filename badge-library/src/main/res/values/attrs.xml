@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BadgeIndicator">
+        <attr name="badge_color" format="color"/>
+        <attr name="badge_textColor" format="color"/>
+        <attr name="badge_textSize" format="dimension"/>
+        <attr name="badge_padding" format="dimension"/>
+        <attr name="badge_value" format="integer"/>
+    </declare-styleable>
+</resources>

@@ -7,36 +7,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
-
-import java.util.Arrays;
-
-import java.util.Arrays;
 
 import static android.graphics.Paint.Align.CENTER;
 import static android.graphics.Paint.Style.FILL;
 
 class Configuration {
-
-    private static final int ATTR_PADDING = android.R.attr.padding;
-    private static final int ATTR_BADGE_COLOR = android.R.attr.color;
-    private static final int ATTR_TEXT_COLOR = android.R.attr.textColor;
-    private static final int ATTR_TEXT_SIZE = android.R.attr.textSize;
-    private static final int ATTR_VALUE = android.R.attr.value;
-    private static final int[] ATTR_SET = createAttrSet();
-
-    private static int[] createAttrSet() {
-        int[] attrs = {
-                ATTR_PADDING,
-                ATTR_BADGE_COLOR,
-                ATTR_TEXT_COLOR,
-                ATTR_TEXT_SIZE,
-                ATTR_VALUE
-        };
-        Arrays.sort(attrs);
-        return attrs;
-    }
 
     private final Paint textPaint = new Paint();
     private final Paint backgroundPaint = new Paint();
@@ -89,31 +64,22 @@ class Configuration {
     }
 
     void loadAttributes(Context context, AttributeSet attrs) {
-        TypedArray a = context.obtainStyledAttributes(attrs, ATTR_SET);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BadgeIndicator);
         loadFromAttrArray(a);
         a.recycle();
     }
 
     private void loadFromAttrArray(TypedArray a) {
-        value = a.getInt(indexOfAttr(ATTR_VALUE), value);
-        padding = a.getDimensionPixelSize(indexOfAttr(ATTR_PADDING), padding);
+        value = a.getInt(R.styleable.BadgeIndicator_badge_value, value);
+        padding = a.getDimensionPixelSize(R.styleable.BadgeIndicator_badge_padding, padding);
 
-        int badgeColor = a.getColor(indexOfAttr(ATTR_BADGE_COLOR), backgroundPaint.getColor());
+        int badgeColor = a.getColor(R.styleable.BadgeIndicator_badge_color, backgroundPaint.getColor());
         backgroundPaint.setColor(badgeColor);
 
-        int textColor = a.getColor(indexOfAttr(ATTR_TEXT_COLOR), textPaint.getColor());
+        int textColor = a.getColor(R.styleable.BadgeIndicator_badge_textColor, textPaint.getColor());
         textPaint.setColor(textColor);
 
-        int textSize = a.getDimensionPixelSize(indexOfAttr(ATTR_TEXT_SIZE), (int)textPaint.getTextSize());
+        int textSize = a.getDimensionPixelSize(R.styleable.BadgeIndicator_badge_textSize, (int)textPaint.getTextSize());
         textPaint.setTextSize(textSize);
-    }
-
-
-    private int indexOfAttr(int id) {
-        for (int i = 0; i < ATTR_SET.length; i++) {
-            if (ATTR_SET[i] == id) return i;
-        }
-
-        throw new RuntimeException("id " + id +  " not in ATTR_SET");
     }
 }

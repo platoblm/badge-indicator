@@ -1,5 +1,6 @@
 <LinearLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:badge="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" 
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
@@ -12,7 +13,7 @@
         android:id="@+id/badge_default"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:value="9"
+        badge:badge_value="9"
         />
 
     <LinearLayout
@@ -26,8 +27,8 @@
             android:id="@+id/badge_bigger_single_digit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="70dp"
-            android:value="9"
+            badge:badge_value="9"
+            badge:badge_textSize="70dp"
             />
 
         <net.badgeindicator.BadgeView
@@ -35,10 +36,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:color="#0000ff"
-            android:textColor="#ffffff"
-            android:textSize="70dp"
-            android:value="135"
+            badge:badge_value="135"
+            badge:badge_color="#0000ff"
+            badge:badge_textColor="#ffffff"
+            badge:badge_textSize="70dp"
             />
 
     </LinearLayout>
