@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     badge:badge_value="5"
     badge:badge_padding="@dimen/badge_indicator_sample_padding"
-    badge:badge_color="#ff0000"
-    badge:badge_textColor="#ffffff"
+    badge:badge_color="#00ff00"
+    badge:badge_textColor="#000000"
     badge:badge_textSize="@dimen/badge_indicator_sample_text_size"
     />
