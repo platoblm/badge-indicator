@@ -44,9 +44,7 @@ public class BadgeView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         validator.validateLayoutParameters(this);
 
-        paints.configure(configuration);
         measurements.update(configuration, paints);
-
         setMeasuredDimension(measurements.getWidth(), measurements.getHeight());
     }
 
