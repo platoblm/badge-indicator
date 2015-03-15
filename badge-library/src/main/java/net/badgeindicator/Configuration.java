@@ -67,21 +67,14 @@ class Configuration {
      * @return true if colors have changed, false if not
      */
     boolean updateCurrentColors(int[] stateSet) {
-        boolean changed = false;
+        final int backgroundColor = currentBackgroundColor;
+        final int textColor = currentTextColor;
 
-        int color = backgroundColors.getColorForState(stateSet, 0);
-        if (currentBackgroundColor != color) {
-            currentBackgroundColor = color;
-            changed = true;
-        }
+        currentBackgroundColor = backgroundColors.getColorForState(stateSet, 0);
+        currentTextColor = textColors.getColorForState(stateSet, 0);
 
-        color = textColors.getColorForState(stateSet, 0);
-        if (currentTextColor != color) {
-            currentTextColor = color;
-            changed = true;
-        }
-
-        return changed;
+        return backgroundColor != currentBackgroundColor ||
+               textColor != currentTextColor;
     }
 
     private void loadFromAttributeArray(TypedArray appearance) {
