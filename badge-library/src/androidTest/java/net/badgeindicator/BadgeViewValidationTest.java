@@ -1,30 +1,38 @@
 package net.badgeindicator;
 
 import android.content.Context;
-import android.test.InstrumentationTestCase;
+import android.support.test.runner.AndroidJUnit4;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import org.hamcrest.CoreMatchers;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.view.View.MeasureSpec.EXACTLY;
 import static android.view.View.MeasureSpec.makeMeasureSpec;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
-public class BadgeViewValidationTest extends InstrumentationTestCase {
+@RunWith(AndroidJUnit4.class)
+public class BadgeViewValidationTest {
 
     BadgeView badge;
     ViewGroup container;
 
-    public void setUp() {
+    @Before
+    public void setup() {
         Context context = getInstrumentation().getTargetContext();
         badge = new BadgeView(context);
         container = new FrameLayout(context);
     }
-    
-    public void testShouldValidateWidth() {
+
+    @Test
+    public void shouldValidateWidth() {
         try {
             container.addView(badge, 10, WRAP_CONTENT);
             measure();
@@ -34,7 +42,8 @@ public class BadgeViewValidationTest extends InstrumentationTestCase {
         }
     }
 
-    public void testShouldValidateHeight() {
+    @Test
+    public void shouldValidateHeight() {
         try {
             container.addView(badge, WRAP_CONTENT, 10);
             measure();

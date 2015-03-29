@@ -1,40 +1,48 @@
 package net.badgeindicator;
 
 import android.content.Context;
-import android.test.InstrumentationTestCase;
+import android.support.test.runner.AndroidJUnit4;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.view.View.MeasureSpec.EXACTLY;
 import static android.view.View.MeasureSpec.makeMeasureSpec;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
+import static org.junit.Assert.assertThat;
 
-public class BadgeViewTest extends InstrumentationTestCase {
+@RunWith(AndroidJUnit4.class)
+public class BadgeViewTest {
     
     BadgeView badge;
     ViewGroup container;
-    
-    @Override
-    public void setUp() {
+
+    @Before
+    public void setup() {
         Context context = getInstrumentation().getTargetContext();
-        
+
         badge = new BadgeView(context);
-        
+
         container = new FrameLayout(context);
         container.addView(badge, WRAP_CONTENT, WRAP_CONTENT);
     }
 
-    public void testShouldBeSquareWhenValueSingleDigit() {
+    @Test
+    public void shouldBeSquareWhenValueSingleDigit() {
         badge.setValue(9);
         measureContainer();
         assertThat(badge.getMeasuredWidth(), is(not(0)));
         assertThat(badge.getMeasuredWidth(), is(badge.getMeasuredHeight()));
     }
 
-    public void testShouldHaveSameSizeForAllSingleDigits() {
+    @Test
+    public void shouldHaveSameSizeForAllSingleDigits() {
         int singleDigitSide = singleDigitHeight();
         assertThat(singleDigitSide, is(not(0)));
 
@@ -48,13 +56,15 @@ public class BadgeViewTest extends InstrumentationTestCase {
         }
     }
 
-    public void testShouldPreserveHeightWhenValueHasMoreDigits() {
+    @Test
+    public void shouldPreserveHeightWhenValueHasMoreDigits() {
         badge.setValue(122);
         measureContainer();
         assertThat(badge.getMeasuredHeight(), is(singleDigitHeight()));
     }
 
-    public void testShouldRequestLayoutWhenValueChanges() {
+    @Test
+    public void shouldRequestLayoutWhenValueChanges() {
         layoutContainer();
         assertThat(badge.isLayoutRequested(), is(false));
         

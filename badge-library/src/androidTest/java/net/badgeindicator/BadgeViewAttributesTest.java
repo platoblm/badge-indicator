@@ -1,19 +1,25 @@
 package net.badgeindicator;
 
 import android.content.Context;
-import android.test.InstrumentationTestCase;
+import android.support.test.runner.AndroidJUnit4;
 import android.view.LayoutInflater;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
 import static android.graphics.Color.WHITE;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
-public class BadgeViewAttributesTest extends InstrumentationTestCase {
+@RunWith(AndroidJUnit4.class)
+public class BadgeViewAttributesTest {
 
-    public void testShouldUseDefaultValues() {
+    @Test
+    public void shouldUseDefaultValues() {
         Configuration config = getDefaultConfiguration();
 
         assertThat(config.getValueToDraw(), is("0"));
@@ -23,7 +29,8 @@ public class BadgeViewAttributesTest extends InstrumentationTestCase {
         assertThat(config.getPadding(), is(dimension(R.dimen.badge_indicator_default_padding)));
     }
 
-    public void testShouldLoadAttributesFromLayoutFile() {
+    @Test
+    public void shouldLoadAttributesFromLayoutFile() {
         Configuration config = getSampleConfiguration();
 
         assertThat(config.getValueToDraw(), is("5"));

@@ -9,11 +9,17 @@ android {
         minSdkVersion 9
         targetSdkVersion 21
 
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+
         versionCode 1
         versionName "0.1"
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt' // for 'Duplicate files copied in APK LICENSE.txt' error
     }
 }
 
 dependencies {
-    androidTestCompile 'org.hamcrest:hamcrest-all:1.3'
+    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
 }
