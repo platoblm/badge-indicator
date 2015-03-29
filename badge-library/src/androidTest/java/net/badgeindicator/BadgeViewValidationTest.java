@@ -5,22 +5,23 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.view.View.MeasureSpec.EXACTLY;
 import static android.view.View.MeasureSpec.makeMeasureSpec;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
 @RunWith(AndroidJUnit4.class)
 public class BadgeViewValidationTest {
 
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+    
     BadgeView badge;
     ViewGroup container;
 
@@ -33,29 +34,20 @@ public class BadgeViewValidationTest {
 
     @Test
     public void shouldValidateWidth() {
-        try {
-            container.addView(badge, 10, WRAP_CONTENT);
-            measure();
-            fail("Should warn user when width invalid");
-        } catch (Exception e) {
-            assertException(e, "Width should be WRAP_CONTENT");
-        }
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage("Width should be WRAP_CONTENT");
+
+        container.addView(badge, 10, WRAP_CONTENT);
+        measure();
     }
 
     @Test
     public void shouldValidateHeight() {
-        try {
-            container.addView(badge, WRAP_CONTENT, 10);
-            measure();
-            fail("Should warn user when height invalid");
-        } catch (Exception e) {
-            assertException(e, "Height should be WRAP_CONTENT");
-        }
-    }
+        expectedException.expect(RuntimeException.class);
+        expectedException.expectMessage("Height should be WRAP_CONTENT");
 
-    private void assertException(Exception e, String message) {
-        assertThat(e, CoreMatchers.instanceOf(RuntimeException.class));
-        assertThat(e.getMessage(), is(message));
+        container.addView(badge, WRAP_CONTENT, 10);
+        measure();
     }
 
     private void measure() {

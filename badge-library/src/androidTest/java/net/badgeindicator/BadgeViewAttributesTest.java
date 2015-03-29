@@ -20,7 +20,8 @@ public class BadgeViewAttributesTest {
 
     @Test
     public void shouldUseDefaultValues() {
-        Configuration config = getDefaultConfiguration();
+        BadgeView defaultView = new BadgeView(getContext());
+        Configuration config = getConfiguration(defaultView);
 
         assertThat(config.getValueToDraw(), is("0"));
         assertThat(config.getCurrentBackgroundColor(), is(RED));
@@ -31,7 +32,8 @@ public class BadgeViewAttributesTest {
 
     @Test
     public void shouldLoadAttributesFromLayoutFile() {
-        Configuration config = getSampleConfiguration();
+        BadgeView sampleView = inflateSampleView();
+        Configuration config = getConfiguration(sampleView);
 
         assertThat(config.getValueToDraw(), is("5"));
         assertThat(config.getCurrentBackgroundColor(), is(GREEN));
@@ -40,14 +42,7 @@ public class BadgeViewAttributesTest {
         assertThat(config.getPadding(), is(dimension(R.dimen.badge_indicator_sample_padding)));
     }
 
-    private Configuration getDefaultConfiguration() {
-        BadgeView view = new BadgeView(getContext());
-        view.drawableStateChanged();
-        return view.getConfiguration();
-    }
-
-    private Configuration getSampleConfiguration() {
-        BadgeView view = inflateSampleView();
+    private Configuration getConfiguration(BadgeView view) {
         view.drawableStateChanged();
         return view.getConfiguration();
     }
