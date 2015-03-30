@@ -72,7 +72,7 @@ public class BadgeViewTest {
         
         assertThat(badge.isLayoutRequested(), is(true));
     }
-    
+
     private int singleDigitHeight() {
         badge.setValue(0);
         measureContainer();

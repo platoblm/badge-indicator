@@ -30,6 +30,7 @@ public class BadgeView extends View {
     public void setValue(int value) {
         configuration.setValue(value);
         requestLayout();
+        invalidate();
     }
     
     public int getValue() {
