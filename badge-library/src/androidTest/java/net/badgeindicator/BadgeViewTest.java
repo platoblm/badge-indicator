@@ -25,11 +25,9 @@ public class BadgeViewTest {
 
     @Before
     public void setup() {
-        Context context = getInstrumentation().getTargetContext();
+        badge = new BadgeView(getContext());
 
-        badge = new BadgeView(context);
-
-        container = new FrameLayout(context);
+        container = new FrameLayout(getContext());
         container.addView(badge, WRAP_CONTENT, WRAP_CONTENT);
     }
 
@@ -73,17 +71,21 @@ public class BadgeViewTest {
         assertThat(badge.isLayoutRequested(), is(true));
     }
 
-    private int singleDigitHeight() {
-        badge.setValue(0);
-        measureContainer();
-        return badge.getMeasuredWidth();
+    private Context getContext() {
+        return getInstrumentation().getTargetContext();
     }
-
+   
     private void measureContainer() {
         container.measure(makeMeasureSpec(1000, EXACTLY), makeMeasureSpec(300, EXACTLY));
     }
 
     private void layoutContainer() {
         container.layout(0, 0, 1000, 300);
+    }
+
+    private int singleDigitHeight() {
+        badge.setValue(0);
+        measureContainer();
+        return badge.getMeasuredHeight();
     }
 }
