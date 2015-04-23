@@ -56,7 +56,7 @@ public class BadgeViewTest {
 
     @Test
     public void shouldPreserveHeightWhenValueHasMoreDigits() {
-        badge.setValue(122);
+        badge.setValue(123);
         measureContainer();
         assertThat(badge.getMeasuredHeight(), is(singleDigitHeight()));
     }
